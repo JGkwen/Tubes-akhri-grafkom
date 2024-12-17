@@ -2,3 +2,18 @@ body {
     margin: 0;
     overflow: hidden;
 }
+
+.tglBtn {
+    position: absolute;
+    margin: 2px;
+    background-color: rgb(255, 85, 85);
+    border-color: black;
+    border-radius: 7px;
+    width: 3cm;
+    height: 1cm;
+    cursor: pointer;
+}
+
+.tglBtn:hover {
+    background-color: greenyellow;
+}
