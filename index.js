@@ -1,9 +1,9 @@
 import * as THREE from "three";
-import { OrbitControls } from "./node_modules/three/examples/jsm/controls/OrbitControls.js";
 import { PointerLockControls } from "./node_modules/three/examples/jsm/controls/PointerLockControls.js";
 import KeyboardHelper from "./keyboard.js";
 import Lantai from "./lantai.js";
 import Desk from "./desk.js";
+import kabinet from "./kabinet.js";
 import Tembok from "./tembok.js";
 import Pintu from "./pintu.js";
 
@@ -17,13 +17,11 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 // Pasang canvas ke layar
 document.body.appendChild(renderer.domElement);
 // Menggerakan kamera
-let OrbCtrl = new OrbitControls(cam, renderer.domElement);
 let PlCtrl = new PointerLockControls(cam, renderer.domElement);
 let clock = new THREE.Clock();
 // Shadow
-renderer.shadowMap.type = THREE.BasicShadowMap;
 renderer.shadowMap.enabled = true;
-
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 // Tombol Lock kamera
 let button = document.getElementById("btn");
@@ -60,10 +58,9 @@ function prosesKeyboard(delta) {
     if(myKeyboard.keys['q']) {
         PlCtrl.getObject().position.y -= actualSpeed;
     }
-    if(myKeyboard.keys['e']) {
+    if(myKeyboard.keys[' ']) {
         PlCtrl.getObject().position.y += actualSpeed;
     }
-    
 }
 
 // Posisi Kamera
@@ -71,6 +68,7 @@ cam.position.z = 20;
 // Ganti Warna background
 renderer.setClearColor(0xcacaca);
 
+// X y z helper
 const axesHelper = new THREE.AxesHelper( 5 );
 scene.add( axesHelper );
 
@@ -83,14 +81,24 @@ let wall = new Tembok(scene);
 // Desk
 let desk = new Desk(scene);
 
+// Kabinet
+let kabin = new kabinet(scene);
+
 // Tambahkan pintu ke tembok depan
 let doorPosition = { x: 0, y: 0, z: -29.75 }; // Dekat dengan tembok depan
 let door = new Pintu(scene, doorPosition);
 
 // Ambient Light
-let ambLight = new THREE.AmbientLight(0xffffff);
+let ambLight = new THREE.AmbientLight(0xffffff,0.05);
 scene.add(ambLight);
 
+// Point Light
+let pLight = new THREE.PointLight(0xffffff,200,0);
+pLight.position.set(0,10,0);
+pLight.castShadow = true;
+scene.add(pLight);
+let pLightHelp = new THREE.PointLightHelper(pLight);
+scene.add(pLightHelp);
 
 function draw() {
     renderer.render(scene, cam);

@@ -9,7 +9,7 @@ export default class Desk {
         this.deskCol = textureLoader.load("./texture/desk/Wood069_1K-JPG_Color.jpg");
         this.deskNorm = textureLoader.load("./texture/desk/Wood069_1K-JPG_NormalDX.jpg");
         this.deskRough = textureLoader.load("./texture/desk/Wood069_1K-JPG_Roughness.jpg");
-
+        
         // Penempatan desk parts
         this.papanFlat(0,-7.75,-10);
         this.papanFlat(0,-2.75,-10);
@@ -36,7 +36,6 @@ export default class Desk {
             map: this.deskCol,
             normalMap: this.deskNorm,
             roughnessMap: this.deskRough,
-            side: THREE.DoubleSide,
         })
     }
 
