@@ -4,6 +4,8 @@ import { PointerLockControls } from "./node_modules/three/examples/jsm/controls/
 import KeyboardHelper from "./keyboard.js";
 import Lantai from "./lantai.js";
 import Desk from "./desk.js";
+import Tembok from "./tembok.js";
+import Pintu from "./pintu.js";
 
 // Scene = 3D world kita
 let scene = new THREE.Scene();
@@ -61,6 +63,7 @@ function prosesKeyboard(delta) {
     if(myKeyboard.keys['e']) {
         PlCtrl.getObject().position.y += actualSpeed;
     }
+    
 }
 
 // Posisi Kamera
@@ -74,8 +77,15 @@ scene.add( axesHelper );
 // Lantai
 let lantai = new Lantai(scene);
 
+// Tembok
+let wall = new Tembok(scene);
+
 // Desk
 let desk = new Desk(scene);
+
+// Tambahkan pintu ke tembok depan
+let doorPosition = { x: 0, y: 0, z: -29.75 }; // Dekat dengan tembok depan
+let door = new Pintu(scene, doorPosition);
 
 // Ambient Light
 let ambLight = new THREE.AmbientLight(0xffffff);
