@@ -11,6 +11,7 @@ export default class kabinet {
         this.kabinRough = textureLoader.load("./texture/kabinet/Plastic013A_1K-JPG_Roughness.jpg");
 
         this.kabin(-14.38,-5.25,-5.3);
+        this.kabin2(14.38,-5.25,-5.3);
     }
 
     // Membuat material
@@ -31,6 +32,18 @@ export default class kabinet {
         kabinMesh.receiveShadow = true;
         kabinMesh.castShadow = true;
         kabinMesh.rotation.y -= 0.5;
+        kabinMesh.position.set(x,y,z)
+        this.scene.add(kabinMesh);
+    }
+
+    kabin2(x,y,z) {
+        let kabinGeo = new THREE.BoxGeometry(6.26,4.5,0.3);
+        kabinGeo.translate(-3, 0, 0);
+        let kabinMat = this.buatMat();
+        let kabinMesh = new THREE.Mesh(kabinGeo, kabinMat);
+        kabinMesh.receiveShadow = true;
+        kabinMesh.castShadow = true;
+        // kabinMesh.rotation.y += 0.5;
         kabinMesh.position.set(x,y,z)
         this.scene.add(kabinMesh);
     }
