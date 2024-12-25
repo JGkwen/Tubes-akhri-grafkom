@@ -63,6 +63,27 @@ function prosesKeyboard(delta) {
     }
 }
 
+// Raycast
+let rayCast = new THREE.Raycaster();
+let mouse = {};
+let arrow = new THREE.ArrowHelper(rayCast.ray.direction, cam.position, 10, 0xff0000);
+scene.add(arrow);
+
+addEventListener("mousedown", (e)=>{
+    mouse.x = (e.clientX/window.innerWidth)*2-1;
+    mouse.y = (e.clienty/window.innerHeight)*-2+1;
+    console.log(mouse)
+
+    rayCast.setFromCamera(mouse,cam);
+    let items = rayCast.intersectObjects(scene.children);
+    arrow.setDirection(rayCast.ray.direction);
+    items.forEach((i)=> {
+        if(i.object.name != "") {
+            console.log(i);
+        }
+    })
+});
+
 // Posisi Kamera
 cam.position.z = 20;
 // Ganti Warna background

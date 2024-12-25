@@ -31,8 +31,9 @@ export default class kabinet {
         let kabinMesh = new THREE.Mesh(kabinGeo, kabinMat);
         kabinMesh.receiveShadow = true;
         kabinMesh.castShadow = true;
-        kabinMesh.rotation.y -= 0.5;
+        // kabinMesh.rotation.y -= 0.5;
         kabinMesh.position.set(x,y,z)
+        kabinMesh.name = "kiri";
         this.scene.add(kabinMesh);
     }
 
@@ -45,6 +46,7 @@ export default class kabinet {
         kabinMesh.castShadow = true;
         // kabinMesh.rotation.y += 0.5;
         kabinMesh.position.set(x,y,z)
+        kabinMesh.name = "kanan";
         this.scene.add(kabinMesh);
     }
 }
