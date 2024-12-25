@@ -6,6 +6,9 @@ import Desk from "./desk.js";
 import kabinet from "./kabinet.js";
 import Tembok from "./tembok.js";
 import Pintu from "./pintu.js";
+import Plafon from './plafon.js';
+import Lampu from './lampu.js';
+import TV from "./tv.js"; 
 
 // Scene = 3D world kita
 let scene = new THREE.Scene();
@@ -89,6 +92,9 @@ cam.position.z = 20;
 // Ganti Warna background
 renderer.setClearColor(0xcacaca);
 
+Plafon(scene);
+Lampu(scene);
+
 // X y z helper
 const axesHelper = new THREE.AxesHelper( 5 );
 scene.add( axesHelper );
@@ -104,6 +110,10 @@ let desk = new Desk(scene);
 
 // Kabinet
 let kabin = new kabinet(scene);
+
+// Tambahkan TV di atas meja
+let tvPosition = { x: 0, y: -2.25, z: -10 }; // Posisi TV tepat di atas meja
+let tv = new TV(scene, tvPosition);
 
 // Tambahkan pintu ke tembok depan
 let doorPosition = { x: 0, y: 0, z: -29.75 }; // Dekat dengan tembok depan
