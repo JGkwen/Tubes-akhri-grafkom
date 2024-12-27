@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { GLTFLoader } from './node_modules/three/examples/jsm/loaders/GLTFLoader.js';
 import { PointerLockControls } from "./node_modules/three/examples/jsm/controls/PointerLockControls.js";
 import KeyboardHelper from "./keyboard.js";
 import Lantai from "./lantai.js";
@@ -134,6 +135,26 @@ let tv = new TV(scene, tvPosition);
 // Tambahkan pintu ke tembok depan
 let doorPosition = { x: 0, y: 0, z: -29.75 }; // Dekat dengan tembok depan
 let door = new Pintu(scene, doorPosition);
+
+// Models
+const loader = new GLTFLoader();
+
+loader.load(
+    './models/couch.glb',
+    (gltf) => {
+        console.log("Model loaded successfully:", gltf.scene);
+
+        const sofa = gltf.scene;
+
+        sofa.position.set(0, -7.5, 22.2); 
+        sofa.scale.set(13, 13, 13);
+        sofa.rotation.y = Math.PI ;
+
+        scene.add(sofa);
+    }
+);
+
+
 
 // Ambient Light
 let ambLight = new THREE.AmbientLight(0xffffff,0.05);
