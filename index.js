@@ -40,6 +40,22 @@ PlCtrl.addEventListener('unlock', ()=>{
     button.innerHTML = "Unlocked";
 });
 
+addEventListener("mousedown", (e) => {
+    mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+
+    rayCast.setFromCamera(mouse, cam);
+    let items = rayCast.intersectObjects(scene.children, true); // Periksa anak objek
+
+    items.forEach((i) => {
+        if (i.object.name === "kiri" || i.object.name === "kanan") {
+            kabin.toggleDoor(i.object); // Kabinet
+        } else if (i.object.name === "pintu") {
+            door.toggleDoor(); // Pintu
+        }
+    });
+});
+
 // Keyboard controls
 let myKeyboard = new KeyboardHelper(scene);
 function prosesKeyboard(delta) {

@@ -10,8 +10,13 @@ export default class kabinet {
         this.kabinNorm = textureLoader.load("./texture/kabinet/Plastic013A_1K-JPG_NormalDX.jpg");
         this.kabinRough = textureLoader.load("./texture/kabinet/Plastic013A_1K-JPG_Roughness.jpg");
 
-        this.kabin(-14.38,-5.25,-5.3);
-        this.kabin2(14.38,-5.25,-5.3);
+        // Status pintu (terbuka/tutup)
+        this.leftDoorOpen = false;
+        this.rightDoorOpen = false;
+
+        // Buat kabinet
+        this.leftDoor = this.kabin(-14.38, -5.25, -5.3, "kiri");
+        this.rightDoor = this.kabin2(14.38, -5.25, -5.3, "kanan");
     }
 
     // Membuat material
@@ -20,33 +25,47 @@ export default class kabinet {
             map: this.kabinCol,
             normalMap: this.kabinNorm,
             roughnessMap: this.kabinRough,
-        })
+        });
     }
 
-    // Kabinet
-    kabin(x,y,z) {
-        let kabinGeo = new THREE.BoxGeometry(6.26,4.5,0.3);
+    // Kabinet kiri
+    kabin(x, y, z, name) {
+        let kabinGeo = new THREE.BoxGeometry(6.26, 4.5, 0.3);
         kabinGeo.translate(3, 0, 0);
         let kabinMat = this.buatMat();
         let kabinMesh = new THREE.Mesh(kabinGeo, kabinMat);
         kabinMesh.receiveShadow = true;
         kabinMesh.castShadow = true;
-        // kabinMesh.rotation.y -= 0.5;
-        kabinMesh.position.set(x,y,z)
-        kabinMesh.name = "kiri";
+        kabinMesh.position.set(x, y, z);
+        kabinMesh.name = name;
         this.scene.add(kabinMesh);
+        return kabinMesh;
     }
 
-    kabin2(x,y,z) {
-        let kabinGeo = new THREE.BoxGeometry(6.26,4.5,0.3);
+    // Kabinet kanan
+    kabin2(x, y, z, name) {
+        let kabinGeo = new THREE.BoxGeometry(6.26, 4.5, 0.3);
         kabinGeo.translate(-3, 0, 0);
         let kabinMat = this.buatMat();
         let kabinMesh = new THREE.Mesh(kabinGeo, kabinMat);
         kabinMesh.receiveShadow = true;
         kabinMesh.castShadow = true;
-        // kabinMesh.rotation.y += 0.5;
-        kabinMesh.position.set(x,y,z)
-        kabinMesh.name = "kanan";
+        kabinMesh.position.set(x, y, z);
+        kabinMesh.name = name;
         this.scene.add(kabinMesh);
+        return kabinMesh;
+    }
+
+    // Fungsi untuk membuka/menutup pintu
+    toggleDoor(door) {
+        if (door.name === "kiri") {
+            this.leftDoorOpen = !this.leftDoorOpen;
+            const angle = this.leftDoorOpen ? -Math.PI / 2 : 0; 
+            door.rotation.y = angle;
+        } else if (door.name === "kanan") {
+            this.rightDoorOpen = !this.rightDoorOpen;
+            const angle = this.rightDoorOpen ? Math.PI / 2 : 0; 
+            door.rotation.y = angle;
+        }
     }
 }
