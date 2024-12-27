@@ -133,7 +133,7 @@ let tvPosition = { x: 0, y: -2.25, z: -10 }; // Posisi TV tepat di atas meja
 let tv = new TV(scene, tvPosition);
 
 // Tambahkan pintu ke tembok depan
-let doorPosition = { x: 0, y: 0, z: -29.75 }; // Dekat dengan tembok depan
+let doorPosition = { x: 0, y: 0, z: -30.3 }; // Dekat dengan tembok depan
 let door = new Pintu(scene, doorPosition);
 
 // Models

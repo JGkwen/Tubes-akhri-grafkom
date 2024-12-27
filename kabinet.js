@@ -45,6 +45,7 @@ export default class kabinet {
     // Kabinet kanan
     kabin2(x, y, z, name) {
         let kabinGeo = new THREE.BoxGeometry(6.26, 4.5, 0.3);
+        let kabinGeo2 = new THREE.SphereGeometry(1);
         kabinGeo.translate(-3, 0, 0);
         let kabinMat = this.buatMat();
         let kabinMesh = new THREE.Mesh(kabinGeo, kabinMat);

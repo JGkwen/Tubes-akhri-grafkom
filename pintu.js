@@ -1,8 +1,8 @@
 import * as THREE from "three";
 
 export default class Pintu {
-    constructor(scene, position = { x: 0, y: 0, z: 0 }, rotation = { x: 0, y: 0, z: 0 }) {
-        let doorTexture = new THREE.TextureLoader().load("./texture/pintu/DoorTexture.jpg");
+    constructor(scene, position = { x: 0, y: 0, z: 0 }) {
+        let doorTexture = new THREE.TextureLoader().load("./texture/Door.png");
         let doorMat = new THREE.MeshStandardMaterial({
             map: doorTexture,
         });
