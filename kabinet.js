@@ -28,6 +28,17 @@ export default class kabinet {
         });
     }
 
+    buatMat2() {
+        return new THREE.MeshStandardMaterial({
+            color: 0xffffff,
+            emissive: 0xffffff,
+            emissiveIntensity: 0.2,
+            map: this.kabinCol,
+            normalMap: this.kabinNorm,
+            roughnessMap: this.kabinRough,
+        });
+    }
+
     // Kabinet kiri
     kabin(x, y, z, name) {
         let kabinGeo = new THREE.BoxGeometry(6.26, 4.5, 0.3);
@@ -35,7 +46,7 @@ export default class kabinet {
         kabinGeo.translate(3, 0, 0);
         let kabinMat = this.buatMat();
         let kabinMesh = new THREE.Mesh(kabinGeo, kabinMat);
-        let kabinMat2 = this.buatMat();
+        let kabinMat2 = this.buatMat2();
         let kabinMesh2 = new THREE.Mesh(kabinGeo2, kabinMat2);
         kabinMesh.receiveShadow = true;
         kabinMesh.castShadow = true;
@@ -57,7 +68,7 @@ export default class kabinet {
         kabinGeo.translate(-3, 0, 0);
         let kabinMat = this.buatMat();
         let kabinMesh = new THREE.Mesh(kabinGeo, kabinMat);
-        let kabinMat2 = this.buatMat();
+        let kabinMat2 = this.buatMat2();
         let kabinMesh2 = new THREE.Mesh(kabinGeo2, kabinMat2);
         kabinMesh.receiveShadow = true;
         kabinMesh.castShadow = true;
