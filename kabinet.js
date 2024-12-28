@@ -31,29 +31,44 @@ export default class kabinet {
     // Kabinet kiri
     kabin(x, y, z, name) {
         let kabinGeo = new THREE.BoxGeometry(6.26, 4.5, 0.3);
+        let kabinGeo2 = new THREE.SphereGeometry(0.3);
         kabinGeo.translate(3, 0, 0);
         let kabinMat = this.buatMat();
         let kabinMesh = new THREE.Mesh(kabinGeo, kabinMat);
+        let kabinMat2 = this.buatMat();
+        let kabinMesh2 = new THREE.Mesh(kabinGeo2, kabinMat2);
         kabinMesh.receiveShadow = true;
         kabinMesh.castShadow = true;
+        kabinMesh2.receiveShadow = true;
+        kabinMesh2.castShadow = true;
         kabinMesh.position.set(x, y, z);
+        kabinMesh2.position.set(x+5, y, z+0.3);
         kabinMesh.name = name;
+        kabinMesh2.name = name;
         this.scene.add(kabinMesh);
+        this.scene.add(kabinMesh2);
         return kabinMesh;
     }
 
     // Kabinet kanan
     kabin2(x, y, z, name) {
         let kabinGeo = new THREE.BoxGeometry(6.26, 4.5, 0.3);
-        let kabinGeo2 = new THREE.SphereGeometry(1);
+        let kabinGeo2 = new THREE.SphereGeometry(0.3);
         kabinGeo.translate(-3, 0, 0);
         let kabinMat = this.buatMat();
         let kabinMesh = new THREE.Mesh(kabinGeo, kabinMat);
+        let kabinMat2 = this.buatMat();
+        let kabinMesh2 = new THREE.Mesh(kabinGeo2, kabinMat2);
         kabinMesh.receiveShadow = true;
         kabinMesh.castShadow = true;
+        kabinMesh2.receiveShadow = true;
+        kabinMesh2.castShadow = true;
         kabinMesh.position.set(x, y, z);
+        kabinMesh2.position.set(x-5, y, z+0.3);
         kabinMesh.name = name;
+        kabinMesh2.name = name;
         this.scene.add(kabinMesh);
+        this.scene.add(kabinMesh2);
         return kabinMesh;
     }
 

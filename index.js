@@ -41,6 +41,9 @@ PlCtrl.addEventListener('unlock', ()=>{
     button.innerHTML = "Unlocked";
 });
 
+// Raycast
+let rayCast = new THREE.Raycaster();
+let mouse = {};
 addEventListener("mousedown", (e) => {
     mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
     mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
@@ -83,27 +86,6 @@ function prosesKeyboard(delta) {
     }
 }
 
-// Raycast
-let rayCast = new THREE.Raycaster();
-let mouse = {};
-let arrow = new THREE.ArrowHelper(rayCast.ray.direction, cam.position, 10, 0xff0000);
-scene.add(arrow);
-
-addEventListener("mousedown", (e)=>{
-    mouse.x = (e.clientX/window.innerWidth)*2-1;
-    mouse.y = (e.clienty/window.innerHeight)*-2+1;
-    console.log(mouse)
-
-    rayCast.setFromCamera(mouse,cam);
-    let items = rayCast.intersectObjects(scene.children);
-    arrow.setDirection(rayCast.ray.direction);
-    items.forEach((i)=> {
-        if(i.object.name != "") {
-            console.log(i);
-        }
-    })
-});
-
 // Posisi Kamera
 cam.position.z = 20;
 // Ganti Warna background
@@ -138,6 +120,11 @@ let door = new Pintu(scene, doorPosition);
 
 // Models
 const loader = new GLTFLoader();
+let textureLoader = new THREE.TextureLoader();
+let sofaCol = textureLoader.load("./texture/Sofa/Fabric030_1K-JPG_Color.jpg");
+let sofaNorm = textureLoader.load("./texture/Sofa/Fabric030_1K-JPG_NormalDX.jpg");
+let sofaRough = textureLoader.load("./texture/Sofa/Fabric030_1K-JPG_Roughness.jpg");
+let sofaAmbi = textureLoader.load("./texture/Sofa/Fabric030_1K-JPG_AmbientOcclusion.jpg");
 
 loader.load(
     './models/couch.glb',
@@ -146,15 +133,26 @@ loader.load(
 
         const sofa = gltf.scene;
 
-        sofa.position.set(0, -7.5, 22.2); 
+        sofa.traverse((child) => {
+            if(child.isMesh) {
+                child.material = new THREE.MeshStandardMaterial({
+                    map: sofaCol,
+                    normalMap: sofaNorm,
+                    roughnessMap: sofaRough,
+                    aoMap: sofaAmbi,
+                });
+                child.material.needsUpdate = true;
+            }
+        });
+
+        sofa.position.set(0, -10, 22.2); 
         sofa.scale.set(13, 13, 13);
         sofa.rotation.y = Math.PI ;
+        sofa.castShadow = true;
 
         scene.add(sofa);
     }
 );
-
-
 
 // Ambient Light
 let ambLight = new THREE.AmbientLight(0xffffff,0.05);
@@ -162,7 +160,7 @@ scene.add(ambLight);
 
 // Point Light
 let pLight = new THREE.PointLight(0xffffff,200,0);
-pLight.position.set(0,10,0);
+pLight.position.set(0,9.48,0);
 pLight.castShadow = true;
 scene.add(pLight);
 let pLightHelp = new THREE.PointLightHelper(pLight);
