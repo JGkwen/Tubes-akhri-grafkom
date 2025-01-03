@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import * as CSS3D from "css3d";
 import { GLTFLoader } from './node_modules/three/examples/jsm/loaders/GLTFLoader.js';
 import { PointerLockControls } from "./node_modules/three/examples/jsm/controls/PointerLockControls.js";
 import KeyboardHelper from "./keyboard.js";
@@ -166,8 +167,53 @@ scene.add(pLight);
 let pLightHelp = new THREE.PointLightHelper(pLight);
 scene.add(pLightHelp);
 
+// CSS3D
+function Element(id, x, y, z) {
+    const div = document.createElement('div');
+    div.style.width = '480px';
+    div.style.height = '360px';
+
+    const iframe = document.createElement('iframe');
+    iframe.style.width = '720px';
+    iframe.style.height = '420px';
+    iframe.style.border = '0px';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    iframe.allowFullscreen = true;
+    iframe.src = `https://www.youtube.com/embed/${id}?rel=0&enablejsapi=1`;
+    div.appendChild(iframe);
+
+    const object = new CSS3D.CSS3DObject(div);
+    object.position.set(x,y,z);
+
+    return object;
+}
+
+let scene2 = new THREE.Scene();
+let aspect = window.innerWidth/window.innerHeight;
+let cam2 = new THREE.PerspectiveCamera(45, aspect, 0.1, 1000);
+cam2.position.set(0,0,0);
+
+let renderer2 = new CSS3D.CSS3DRenderer();
+renderer2.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer2.domElement);
+
+const blocker = document.getElementById('blocker');
+blocker.style.display = 'none';
+
+PlCtrl.addEventListener('start', function () {
+    blocker.style.display = '';
+});
+PlCtrl.addEventListener('end', function () {
+    blocker.style.display = 'none';
+});
+
+// id Video yt
+let ytVid = Element('9bZkp7q19f0', 0, 100, -1400);
+scene2.add(ytVid);
+
 function draw() {
     renderer.render(scene, cam);
+    renderer2.render(scene2, cam);
 
     let delta = clock.getDelta();
     prosesKeyboard(delta);

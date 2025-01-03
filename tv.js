@@ -10,11 +10,11 @@ export default class TV {
             emissive: 0x222222, 
             roughness: 0.5,
         });
-        const screen = new THREE.Mesh(screenGeo, screenMat);
-        screen.castShadow = true;
-        screen.receiveShadow = true;
-        screen.position.set(position.x, position.y + 3.75, position.z);
-        this.scene.add(screen);
+        this.screen = new THREE.Mesh(screenGeo, screenMat);
+        this.screen.castShadow = true;
+        this.screen.receiveShadow = true;
+        this.screen.position.set(position.x, position.y + 3.75, position.z);
+        this.scene.add(this.screen);
 
         // frame samping tv
         const bezelGeo = new THREE.BoxGeometry(12.2, 7.2, 0.6);
