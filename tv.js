@@ -1,7 +1,7 @@
 import * as THREE from "three";
 
 export default class TV {
-    constructor(scene, position = { x: 0, y: -2.25, z: -10 }) {
+    constructor(scene, position = { x: 0, y: -2.25, z: -10 }, ytVid) {
         this.scene = scene;
 
         const screenGeo = new THREE.BoxGeometry(12, 7, 0.5);
@@ -10,11 +10,17 @@ export default class TV {
             emissive: 0x222222, 
             roughness: 0.5,
         });
-        this.screen = new THREE.Mesh(screenGeo, screenMat);
-        this.screen.castShadow = true;
-        this.screen.receiveShadow = true;
-        this.screen.position.set(position.x, position.y + 3.75, position.z);
-        this.scene.add(this.screen);
+        screen = new THREE.Mesh(screenGeo, screenMat);
+        screen.castShadow = true;
+        screen.receiveShadow = true;
+        screen.position.set(position.x, position.y + 3.75, position.z);
+        this.scene.add(screen);
+
+        if (ytVid) {
+            ytVid.scale.set(0.066, 0.066, 0.066); // Scale down the ytVid to fit the screen
+            ytVid.position.set(0, 0, 0.26);
+            screen.add(ytVid);
+        }
 
         // frame samping tv
         const bezelGeo = new THREE.BoxGeometry(12.2, 7.2, 0.6);

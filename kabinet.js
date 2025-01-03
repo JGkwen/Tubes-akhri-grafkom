@@ -15,8 +15,8 @@ export default class kabinet {
         this.rightDoorOpen = false;
 
         // Buat kabinet
-        this.leftDoor = this.kabin(-14.38, -5.25, -5.3, "kiri");
-        this.rightDoor = this.kabin2(14.38, -5.25, -5.3, "kanan");
+        this.leftDoor = this.kabinKiri(-14.38, -5.25, -5, "kiri");
+        this.rightDoor = this.kabinKanan(14.38, -5.25, -5, "kanan");
     }
 
     // Membuat material
@@ -28,58 +28,32 @@ export default class kabinet {
         });
     }
 
-    buatMat2() {
-        return new THREE.MeshStandardMaterial({
-            color: 0xffffff,
-            emissive: 0xffffff,
-            emissiveIntensity: 0.2,
-            map: this.kabinCol,
-            normalMap: this.kabinNorm,
-            roughnessMap: this.kabinRough,
-        });
-    }
-
     // Kabinet kiri
-    kabin(x, y, z, name) {
+    kabinKiri(x, y, z, name) {
         let kabinGeo = new THREE.BoxGeometry(6.26, 4.5, 0.3);
-        let kabinGeo2 = new THREE.SphereGeometry(0.3);
         kabinGeo.translate(3, 0, 0);
         let kabinMat = this.buatMat();
         let kabinMesh = new THREE.Mesh(kabinGeo, kabinMat);
-        let kabinMat2 = this.buatMat2();
-        let kabinMesh2 = new THREE.Mesh(kabinGeo2, kabinMat2);
         kabinMesh.receiveShadow = true;
         kabinMesh.castShadow = true;
-        kabinMesh2.receiveShadow = true;
-        kabinMesh2.castShadow = true;
         kabinMesh.position.set(x, y, z);
-        kabinMesh2.position.set(x+5, y, z+0.3);
         kabinMesh.name = name;
-        kabinMesh2.name = name;
         this.scene.add(kabinMesh);
-        this.scene.add(kabinMesh2);
+        // this.scene.add(kabinMesh2);
         return kabinMesh;
     }
 
     // Kabinet kanan
-    kabin2(x, y, z, name) {
+    kabinKanan(x, y, z, name) {
         let kabinGeo = new THREE.BoxGeometry(6.26, 4.5, 0.3);
-        let kabinGeo2 = new THREE.SphereGeometry(0.3);
         kabinGeo.translate(-3, 0, 0);
         let kabinMat = this.buatMat();
         let kabinMesh = new THREE.Mesh(kabinGeo, kabinMat);
-        let kabinMat2 = this.buatMat2();
-        let kabinMesh2 = new THREE.Mesh(kabinGeo2, kabinMat2);
         kabinMesh.receiveShadow = true;
         kabinMesh.castShadow = true;
-        kabinMesh2.receiveShadow = true;
-        kabinMesh2.castShadow = true;
         kabinMesh.position.set(x, y, z);
-        kabinMesh2.position.set(x-5, y, z+0.3);
         kabinMesh.name = name;
-        kabinMesh2.name = name;
         this.scene.add(kabinMesh);
-        this.scene.add(kabinMesh2);
         return kabinMesh;
     }
 

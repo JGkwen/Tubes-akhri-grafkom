@@ -11,6 +11,7 @@ import Pintu from "./pintu.js";
 import Plafon from './plafon.js';
 import Lampu from './lampu.js';
 import TV from "./tv.js"; 
+import Sofa from "./sofa.js";
 
 // Scene = 3D world kita
 let scene = new THREE.Scene();
@@ -52,10 +53,14 @@ addEventListener("mousedown", (e) => {
     rayCast.setFromCamera(mouse, cam);
     let items = rayCast.intersectObjects(scene.children, true); // Periksa anak objek
 
+    console.log("Intersected items:", items);
+
     items.forEach((i) => {
         if (i.object.name === "kiri" || i.object.name === "kanan") {
+            console.log("Toggling door:", i.object.name);
             kabin.toggleDoor(i.object); // Kabinet
         } else if (i.object.name === "pintu") {
+            console.log("Toggling door: pintu");
             door.toggleDoor(); // Pintu
         }
     });
@@ -96,8 +101,8 @@ Plafon(scene);
 Lampu(scene);
 
 // X y z helper
-const axesHelper = new THREE.AxesHelper( 5 );
-scene.add( axesHelper );
+// const axesHelper = new THREE.AxesHelper( 5 );
+// scene.add( axesHelper );
 
 // Lantai
 let lantai = new Lantai(scene);
@@ -111,73 +116,44 @@ let desk = new Desk(scene);
 // Kabinet
 let kabin = new kabinet(scene);
 
-// Tambahkan TV di atas meja
-let tvPosition = { x: 0, y: -2.25, z: -10 }; // Posisi TV tepat di atas meja
-let tv = new TV(scene, tvPosition);
-
 // Tambahkan pintu ke tembok depan
 let doorPosition = { x: 0, y: 0, z: -30.3 }; // Dekat dengan tembok depan
 let door = new Pintu(scene, doorPosition);
 
-// Models
-const loader = new GLTFLoader();
-let textureLoader = new THREE.TextureLoader();
-let sofaCol = textureLoader.load("./texture/Sofa/Fabric030_1K-JPG_Color.jpg");
-let sofaNorm = textureLoader.load("./texture/Sofa/Fabric030_1K-JPG_NormalDX.jpg");
-let sofaRough = textureLoader.load("./texture/Sofa/Fabric030_1K-JPG_Roughness.jpg");
-let sofaAmbi = textureLoader.load("./texture/Sofa/Fabric030_1K-JPG_AmbientOcclusion.jpg");
-
-loader.load(
-    './models/couch.glb',
-    (gltf) => {
-        console.log("Model loaded successfully:", gltf.scene);
-
-        const sofa = gltf.scene;
-
-        sofa.traverse((child) => {
-            if(child.isMesh) {
-                child.material = new THREE.MeshStandardMaterial({
-                    map: sofaCol,
-                    normalMap: sofaNorm,
-                    roughnessMap: sofaRough,
-                    aoMap: sofaAmbi,
-                });
-                child.material.needsUpdate = true;
-            }
-        });
-
-        sofa.position.set(0, -10, 22.2); 
-        sofa.scale.set(13, 13, 13);
-        sofa.rotation.y = Math.PI ;
-        sofa.castShadow = true;
-
-        scene.add(sofa);
-    }
-);
+let sofa = new Sofa(scene);
 
 // Ambient Light
 let ambLight = new THREE.AmbientLight(0xffffff,0.05);
 scene.add(ambLight);
 
-// Point Light
-let pLight = new THREE.PointLight(0xffffff,200,0);
+// Point Light (Lampu Plafon)
+let pLight = new THREE.PointLight(0xffffff,50,0);
 pLight.position.set(0,9.48,0);
 pLight.castShadow = true;
 scene.add(pLight);
-let pLightHelp = new THREE.PointLightHelper(pLight);
-scene.add(pLightHelp);
+// let pLightHelp = new THREE.PointLightHelper(pLight);
+// scene.add(pLightHelp);
+
+// Lampu TV
+let spLight = new THREE.SpotLight(0xffffff,50,10,5);
+spLight.position.set(0,0,-10);
+spLight.castShadow = true;
+scene.add(spLight);
+// let spLightHelp = new THREE.SpotLightHelper(spLight);
+// scene.add(spLightHelp);
+
 
 // CSS3D
 function Element(id, x, y, z) {
     const div = document.createElement('div');
-    div.style.width = '480px';
-    div.style.height = '360px';
+    div.style.width = '180px';
+    div.style.height = '105px';
 
     const iframe = document.createElement('iframe');
-    iframe.style.width = '720px';
-    iframe.style.height = '420px';
+    iframe.style.width = '180px';
+    iframe.style.height = '105px';
     iframe.style.border = '0px';
-    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    // iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
     iframe.allowFullscreen = true;
     iframe.src = `https://www.youtube.com/embed/${id}?rel=0&enablejsapi=1`;
     div.appendChild(iframe);
@@ -188,32 +164,20 @@ function Element(id, x, y, z) {
     return object;
 }
 
-let scene2 = new THREE.Scene();
-let aspect = window.innerWidth/window.innerHeight;
-let cam2 = new THREE.PerspectiveCamera(45, aspect, 0.1, 1000);
-cam2.position.set(0,0,0);
-
 let renderer2 = new CSS3D.CSS3DRenderer();
 renderer2.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer2.domElement);
 
-const blocker = document.getElementById('blocker');
-blocker.style.display = 'none';
-
-PlCtrl.addEventListener('start', function () {
-    blocker.style.display = '';
-});
-PlCtrl.addEventListener('end', function () {
-    blocker.style.display = 'none';
-});
-
 // id Video yt
-let ytVid = Element('9bZkp7q19f0', 0, 100, -1400);
-scene2.add(ytVid);
+let ytVid = Element('9bZkp7q19f0', 0, 0, 0);
+
+// Tambahkan TV di atas meja
+let tvPosition = { x: 0, y: -2.25, z: -10 }; // Posisi TV tepat di atas meja
+let tv = new TV(scene, tvPosition, ytVid);
 
 function draw() {
     renderer.render(scene, cam);
-    renderer2.render(scene2, cam);
+    renderer2.render(scene, cam);
 
     let delta = clock.getDelta();
     prosesKeyboard(delta);
