@@ -10,6 +10,7 @@ import Tembok from "./tembok.js";
 import Pintu from "./pintu.js";
 import Plafon from './plafon.js';
 import Lampu from './lampu.js';
+import Saklar from "./saklar.js";
 import TV from "./tv.js"; 
 import Sofa from "./sofa.js";
 
@@ -62,6 +63,9 @@ addEventListener("mousedown", (e) => {
         } else if (i.object.name === "pintu") {
             console.log("Toggling door: pintu");
             door.toggleDoor(); // Pintu
+        } else if (i.object.name === "saklar") {
+            console.log("Toggling lampu plafon");
+            saklar.toggleLamp(); // Saklar 
         }
     });
 });
@@ -127,12 +131,16 @@ let ambLight = new THREE.AmbientLight(0xffffff,0.05);
 scene.add(ambLight);
 
 // Point Light (Lampu Plafon)
-let pLight = new THREE.PointLight(0xffffff,50,0);
-pLight.position.set(0,9.48,0);
+let pLight = new THREE.PointLight(0xffffff, 50, 0);
+pLight.position.set(0, 9.48, 0);
 pLight.castShadow = true;
 scene.add(pLight);
 // let pLightHelp = new THREE.PointLightHelper(pLight);
 // scene.add(pLightHelp);
+
+// Inisialisasi Saklar
+let saklar = new Saklar(scene, pLight); // Menghubungkan saklar dengan lampu plafon
+
 
 // Lampu TV
 let spLight = new THREE.SpotLight(0xffffff,50,10,5);
