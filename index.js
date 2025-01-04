@@ -156,6 +156,7 @@ function Element(id, x, y, z) {
     // iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
     iframe.allowFullscreen = true;
     iframe.src = `https://www.youtube.com/embed/${id}?rel=0&enablejsapi=1`;
+    https://www.youtube.com/watch?v=IpFX2vq8HKw&pp=ygUMeWFuZ2thaSBibHVl
     div.appendChild(iframe);
 
     const object = new CSS3D.CSS3DObject(div);
@@ -169,7 +170,7 @@ renderer2.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer2.domElement);
 
 // id Video yt
-let ytVid = Element('9bZkp7q19f0', 0, 0, 0);
+let ytVid = Element('IpFX2vq8HKw', 0, 0, 0);
 
 // Tambahkan TV di atas meja
 let tvPosition = { x: 0, y: -2.25, z: -10 }; // Posisi TV tepat di atas meja
