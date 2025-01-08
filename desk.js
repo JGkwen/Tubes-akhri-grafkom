@@ -19,6 +19,7 @@ export default class Desk {
         this.papanSide(8,-5.25,-10);
         this.papanSide(14.75,-5.25,-10);
         this.papanBack(0,-5.25,-14.75);
+        
         // Kaki Desk
         // Depan kiri
         this.kaki(-13,-9,-6);

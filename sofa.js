@@ -3,7 +3,6 @@ import { GLTFLoader } from './node_modules/three/examples/jsm/loaders/GLTFLoader
 
 export default class Sofa {
     constructor(scene) {
-        // Models
         const loader = new GLTFLoader();
         let textureLoader = new THREE.TextureLoader();
         let sofaCol = textureLoader.load("./texture/Sofa/Fabric030_1K-JPG_Color.jpg");

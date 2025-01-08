@@ -1,31 +1,42 @@
 import * as THREE from "three";
 
 export default class Saklar {
-    constructor(scene, lampLight) {
+    constructor(scene, lampLight, audioListener) {
         this.scene = scene;
-        this.lampLight = lampLight; // Referensi ke lampu plafon
-        this.isLampOn = true; // Status lampu (default menyala)
+        this.lampLight = lampLight;
+        this.isLampOn = true;
 
-        // Geometri dan material saklar
-        const saklarGeo = new THREE.BoxGeometry(1, 2, 0.5); // Ukuran saklar
-        const saklarMat = new THREE.MeshStandardMaterial({ color: 0x333333 }); // Warna abu-abu gelap
+        const saklarGeo = new THREE.BoxGeometry(1, 2, 0.5);
+        const saklarMat = new THREE.MeshStandardMaterial({ color: 0x333333 });
         this.saklar = new THREE.Mesh(saklarGeo, saklarMat);
 
-        // Posisi saklar di tembok (bisa disesuaikan)
-        this.saklar.position.set(-5, 0, -29.8); // Dekat dengan tembok depan
+        this.saklar.position.set(-5, 0, -29.8);
         this.saklar.castShadow = true;
         this.saklar.receiveShadow = true;
 
-        // Nama saklar untuk interaksi
         this.saklar.name = "saklar";
 
-        // Tambahkan saklar ke scene
         this.scene.add(this.saklar);
+
+        // sound effect
+        const audioLoader = new THREE.AudioLoader();
+        this.toggleSound = new THREE.PositionalAudio(audioListener);
+
+        audioLoader.load("./audio/soundeffect/switch.mp3", (buffer) => {
+            this.toggleSound.setBuffer(buffer);
+            this.toggleSound.setRefDistance(5);
+            this.toggleSound.setLoop(false);
+        });
+
+        this.saklar.add(this.toggleSound);
     }
 
-    // Fungsi untuk menyalakan/mematikan lampu
     toggleLamp() {
         this.isLampOn = !this.isLampOn;
-        this.lampLight.visible = this.isLampOn; // Lampu nyala/mati
+        this.lampLight.visible = this.isLampOn;
+
+        if (!this.toggleSound.isPlaying) {
+            this.toggleSound.play();
+        }
     }
 }

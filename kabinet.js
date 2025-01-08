@@ -1,8 +1,9 @@
 import * as THREE from "three";
 
 export default class kabinet {
-    constructor(scene) {
+    constructor(scene, audioListener) {
         this.scene = scene;
+        this.audioListener = audioListener;
 
         // Load Tekstur
         let textureLoader = new THREE.TextureLoader();
@@ -14,9 +15,32 @@ export default class kabinet {
         this.leftDoorOpen = false;
         this.rightDoorOpen = false;
 
+        // Load audio
+        const audioLoader = new THREE.AudioLoader();
+
+        // Sound for opening
+        this.openSound = new THREE.PositionalAudio(this.audioListener);
+        audioLoader.load("./audio/soundeffect/cabinet_open.mp3", (buffer) => {
+            this.openSound.setBuffer(buffer);
+            this.openSound.setRefDistance(5);
+            this.openSound.setLoop(false);
+        });
+
+        // Sound for closing
+        this.closeSound = new THREE.PositionalAudio(this.audioListener);
+        audioLoader.load("./audio/soundeffect/cabinet_close.mp3", (buffer) => {
+            this.closeSound.setBuffer(buffer);
+            this.closeSound.setRefDistance(5);
+            this.closeSound.setLoop(false);
+        });
+
         // Buat kabinet
         this.leftDoor = this.kabinKiri(-14.38, -5.25, -5, "kiri");
         this.rightDoor = this.kabinKanan(14.38, -5.25, -5, "kanan");
+
+        // Tambahkan suara ke pintu kiri
+        this.leftDoor.add(this.openSound);
+        this.leftDoor.add(this.closeSound);
     }
 
     // Membuat material
@@ -39,7 +63,6 @@ export default class kabinet {
         kabinMesh.position.set(x, y, z);
         kabinMesh.name = name;
         this.scene.add(kabinMesh);
-        // this.scene.add(kabinMesh2);
         return kabinMesh;
     }
 
@@ -59,14 +82,23 @@ export default class kabinet {
 
     // Fungsi untuk membuka/menutup pintu
     toggleDoor(door) {
-        if (door.name === "kiri") {
+        const isLeftDoor = door.name === "kiri";
+        const isOpening = isLeftDoor ? !this.leftDoorOpen : !this.rightDoorOpen;
+
+        if (isLeftDoor) {
             this.leftDoorOpen = !this.leftDoorOpen;
-            const angle = this.leftDoorOpen ? -Math.PI / 2 : 0; 
+            const angle = this.leftDoorOpen ? -Math.PI / 2 : 0;
             door.rotation.y = angle;
-        } else if (door.name === "kanan") {
+        } else {
             this.rightDoorOpen = !this.rightDoorOpen;
-            const angle = this.rightDoorOpen ? Math.PI / 2 : 0; 
+            const angle = this.rightDoorOpen ? Math.PI / 2 : 0;
             door.rotation.y = angle;
+        }
+
+        if (isOpening) {
+            this.openSound.play();
+        } else {
+            this.closeSound.play();
         }
     }
 }

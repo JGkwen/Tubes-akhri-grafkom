@@ -7,11 +7,9 @@ export default function Plafon(scene) {
     const plafonGeometry = new THREE.BoxGeometry(65, 1, 65); // Ukuran plafon
     const plafonMaterial = new THREE.MeshStandardMaterial({ 
         map: plafonCol,
-        // normalMap: plafonNorm,
-        // roughnessMap: plafonRough,
     });
     const plafon = new THREE.Mesh(plafonGeometry, plafonMaterial);
-    plafon.position.set(0, 10, 0); // Posisi plafon
+    plafon.position.set(0, 10, 0); 
     plafon.receiveShadow = true;
     plafon.castShadow = true;
     scene.add(plafon);

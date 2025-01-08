@@ -11,11 +11,9 @@ export default class Lantai {
             map: lantaiCol,
             normalMap: lantaiNorm,
             roughnessMap: lantaiRough,
-            // side: THREE.DoubleSide,
         });
 
         this.lantaiMesh = new THREE.Mesh(lantaiGeo, lantaiMat);
-        // this.lantaiMesh.rotation.x = -Math.PI / 2;
         this.lantaiMesh.receiveShadow = true;
         this.lantaiMesh.castShadow = true;
         this.lantaiMesh.position.set(0,-10,0);

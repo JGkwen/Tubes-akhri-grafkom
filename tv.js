@@ -17,7 +17,7 @@ export default class TV {
         this.scene.add(screen);
 
         if (ytVid) {
-            ytVid.scale.set(0.066, 0.066, 0.066); // Scale down the ytVid to fit the screen
+            ytVid.scale.set(0.066, 0.066, 0.066); 
             ytVid.position.set(0, 0, 0.26);
             screen.add(ytVid);
         }

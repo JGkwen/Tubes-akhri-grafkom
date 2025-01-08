@@ -50,20 +50,16 @@ addEventListener("mousedown", (e) => {
     mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
 
     rayCast.setFromCamera(mouse, cam);
-    let items = rayCast.intersectObjects(scene.children, true); // Periksa anak objek
+    let items = rayCast.intersectObjects(scene.children, true);
 
-    // console.log("Intersected items:", items);
 
     items.forEach((i) => {
         if (i.object.name === "kiri" || i.object.name === "kanan") {
-            console.log("Toggling door:", i.object.name);
-            kabin.toggleDoor(i.object); // Kabinet
+            kabin.toggleDoor(i.object); 
         } else if (i.object.name === "pintu") {
-            console.log("Toggling door: pintu");
-            door.toggleDoor(); // Pintu
+            door.toggleDoor();
         } else if (i.object.name === "saklar") {
-            console.log("Toggling lampu plafon");
-            saklar.toggleLamp(); // Saklar 
+            saklar.toggleLamp(); 
         } 
         if (i.object.name === "playPauseButton") {
             audioPlayer.togglePlayPause();
@@ -101,12 +97,14 @@ function prosesKeyboard(delta) {
     }
 }
 
+//audio
+const audioListener = new THREE.AudioListener();
+cam.add(audioListener);
+
+const audioPlayer = new AudioPlayer(scene, audioListener, { x: 10, y: -1, z: -12 });
+
 Plafon(scene);
 Lampu(scene);
-
-// X y z helper
-// const axesHelper = new THREE.AxesHelper( 5 );
-// scene.add( axesHelper );
 
 // Lantai
 let lantai = new Lantai(scene);
@@ -118,11 +116,11 @@ let wall = new Tembok(scene);
 let desk = new Desk(scene);
 
 // Kabinet
-let kabin = new kabinet(scene);
+let kabin = new kabinet(scene, audioListener);
 
 // Tambahkan pintu ke tembok depan
-let doorPosition = { x: 0, y: 0, z: -30.3 }; // Dekat dengan tembok depan
-let door = new Pintu(scene, doorPosition);
+let doorPosition = { x: 0, y: 0, z: -30.3 }; 
+let door = new Pintu(scene, doorPosition, audioListener);
 
 let sofa = new Sofa(scene);
 
@@ -142,13 +140,8 @@ scene.add(pLight);
 // scene.add(pLightHelp);
 
 // Inisialisasi Saklar
-let saklar = new Saklar(scene, pLight); // Menghubungkan saklar dengan lampu plafon
+let saklar = new Saklar(scene, pLight, audioListener); 
 
-//audio
-const audioListener = new THREE.AudioListener();
-cam.add(audioListener);
-
-const audioPlayer = new AudioPlayer(scene, audioListener, { x: 10, y: -1, z: -12 });
 
 // Lampu TV
 let spLight = new THREE.SpotLight(0xffffff,50,10,5);
@@ -189,7 +182,7 @@ document.body.appendChild(renderer2.domElement);
 let ytVid = Element('IpFX2vq8HKw', 0, 0, 0);
 
 // Tambahkan TV di atas meja
-let tvPosition = { x: 0, y: -2.25, z: -10 }; // Posisi TV tepat di atas meja
+let tvPosition = { x: 0, y: -2.25, z: -10 }; 
 let tv = new TV(scene, tvPosition, ytVid);
 
 function draw() {

@@ -22,8 +22,8 @@ export default class AudioPlayer {
             this.sounds.push(sound);
         });
 
-        // Create audio player body
-        const bodyGeometry = new THREE.BoxGeometry(6, 3, 0.5); // Main device body
+        // Casing audio Player
+        const bodyGeometry = new THREE.BoxGeometry(6, 3, 0.5);
         const bodyMaterial = new THREE.MeshStandardMaterial({ color: 0x333333 });
         const bodyMesh = new THREE.Mesh(bodyGeometry, bodyMaterial);
         bodyMesh.position.set(position.x, position.y, position.z);
@@ -31,14 +31,14 @@ export default class AudioPlayer {
         bodyMesh.receiveShadow = true;
         this.scene.add(bodyMesh);
 
-        // Add screen
+        // LED Audio player
         const screenGeometry = new THREE.PlaneGeometry(5, 2.5);
         const screenMaterial = new THREE.MeshBasicMaterial({ color: 0x000000 });
         const screenMesh = new THREE.Mesh(screenGeometry, screenMaterial);
         screenMesh.position.set(position.x, position.y + 0.2, position.z + 0.26);
         this.scene.add(screenMesh);
 
-        // Add album covers on screen
+        // gambar album
         const textureLoader = new THREE.TextureLoader();
         const albums = [
             textureLoader.load("images/album1.png"),
@@ -51,19 +51,15 @@ export default class AudioPlayer {
             const albumGeometry = new THREE.PlaneGeometry(1, 1);
             const albumMaterial = new THREE.MeshBasicMaterial({ map: texture });
             const albumMesh = new THREE.Mesh(albumGeometry, albumMaterial);
-            albumMesh.position.set(
-                position.x - 2 + index * 2, 
-                position.y + 0.2, 
-                position.z + 0.27
-            );
+            albumMesh.position.set(position.x - 2 + index * 2, position.y + 0.2, position.z + 0.27);
             this.scene.add(albumMesh);
             this.albumCovers.push(albumMesh);
 
-            // Add interactivity to change songs
+            // mengubah lagu
             albumMesh.name = `album${index}`;
         });
 
-        // Add play/pause button
+        // pause dan play
         const buttonGeometry = new THREE.CylinderGeometry(0.3, 0.3, 0.1, 32);
         const buttonMaterial = new THREE.MeshStandardMaterial({ color: 0x1db954 });
         this.playPauseButton = new THREE.Mesh(buttonGeometry, buttonMaterial);
@@ -76,10 +72,10 @@ export default class AudioPlayer {
     togglePlayPause() {
         if (this.isPlaying) {
             this.sounds[this.currentSoundIndex].pause();
-            this.playPauseButton.material.color.set(0x1db954); // Change to play button color
+            this.playPauseButton.material.color.set(0x1db954); 
         } else {
             this.sounds[this.currentSoundIndex].play();
-            this.playPauseButton.material.color.set(0xff0000); // Change to pause button color
+            this.playPauseButton.material.color.set(0xff0000); 
         }
         this.isPlaying = !this.isPlaying;
     }

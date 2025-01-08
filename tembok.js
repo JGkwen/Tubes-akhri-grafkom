@@ -20,12 +20,12 @@ export default class Tembok {
         wallFrontShape.lineTo(-30, 10); // Kiri atas
         wallFrontShape.lineTo(-30, -10); // Tutup shape
 
-        // Buat lubang pintu dengan dimensi yang sesuai
+        // Buat lubang pintu 
         const doorHole = new THREE.Path();
         const doorWidth = 8;
         const doorHeight = 15;
-        const doorX = 0; // Posisi tengah
-        const doorY = -2.5; // Sama seperti posisi pintu di Pintu.js
+        const doorX = 0; 
+        const doorY = -2.5; 
 
         doorHole.moveTo(doorX - doorWidth / 2, doorY - doorHeight / 2); // Kiri bawah
         doorHole.lineTo(doorX + doorWidth / 2, doorY - doorHeight / 2); // Kanan bawah
