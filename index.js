@@ -51,7 +51,7 @@ addEventListener("mousedown", (e) => {
     rayCast.setFromCamera(mouse, cam);
     let items = rayCast.intersectObjects(scene.children, true); // Periksa anak objek
 
-    console.log("Intersected items:", items);
+    // console.log("Intersected items:", items);
 
     items.forEach((i) => {
         if (i.object.name === "kiri" || i.object.name === "kanan") {
@@ -86,10 +86,10 @@ function prosesKeyboard(delta) {
         PlCtrl.moveRight(actualSpeed);
     }
     if(myKeyboard.keys['q']) {
-        PlCtrl.getObject().position.y -= actualSpeed;
+        PlCtrl.object().position.y -= actualSpeed;
     }
     if(myKeyboard.keys[' ']) {
-        PlCtrl.getObject().position.y += actualSpeed;
+        PlCtrl.object().position.y += actualSpeed;
     }
 }
 
