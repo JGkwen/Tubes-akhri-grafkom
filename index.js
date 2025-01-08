@@ -94,7 +94,7 @@ function prosesKeyboard(delta) {
         PlCtrl.moveRight(actualSpeed);
     }
     if(myKeyboard.keys['q']) {
-        PlCtrl.object().position.y -= actualSpeed;
+        PlCtrl.getObject().position.y -= actualSpeed;
     }
     if(myKeyboard.keys[' ']) {
         PlCtrl.getObject().position.y += actualSpeed;
