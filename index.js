@@ -13,6 +13,7 @@ import Saklar from "./saklar.js";
 import TV from "./tv.js"; 
 import Sofa from "./sofa.js";
 import sunmoon from "./sunmoon.js";
+import AudioPlayer from "./audioplayer.js";
 
 
 // Scene = 3D world kita
@@ -63,6 +64,13 @@ addEventListener("mousedown", (e) => {
         } else if (i.object.name === "saklar") {
             console.log("Toggling lampu plafon");
             saklar.toggleLamp(); // Saklar 
+        } 
+        if (i.object.name === "playPauseButton") {
+            audioPlayer.togglePlayPause();
+        } 
+        if (i.object.name.startsWith("album")) {
+            const index = parseInt(i.object.name.replace("album", ""), 10);
+            audioPlayer.changeSong(index);
         }
     });
 });
@@ -89,7 +97,7 @@ function prosesKeyboard(delta) {
         PlCtrl.object().position.y -= actualSpeed;
     }
     if(myKeyboard.keys[' ']) {
-        PlCtrl.object().position.y += actualSpeed;
+        PlCtrl.getObject().position.y += actualSpeed;
     }
 }
 
@@ -136,6 +144,11 @@ scene.add(pLight);
 // Inisialisasi Saklar
 let saklar = new Saklar(scene, pLight); // Menghubungkan saklar dengan lampu plafon
 
+//audio
+const audioListener = new THREE.AudioListener();
+cam.add(audioListener);
+
+const audioPlayer = new AudioPlayer(scene, audioListener, { x: 10, y: -1, z: -12 });
 
 // Lampu TV
 let spLight = new THREE.SpotLight(0xffffff,50,10,5);
