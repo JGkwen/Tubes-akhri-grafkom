@@ -43,7 +43,7 @@ export default class Tembok {
         scene.add(this.wallFront);
 
         // Tembok belakang
-        let wallBackGeo = new THREE.BoxGeometry(60, 20, 1);
+        let wallBackGeo = new THREE.BoxGeometry(65, 20, 1);
         this.wallBack = new THREE.Mesh(wallBackGeo, wallMat);
         this.wallBack.position.set(0, 0, 30);
         this.wallBack.castShadow = true;
@@ -59,7 +59,7 @@ export default class Tembok {
         scene.add(this.wallLeft);
 
         // Tembok kanan
-        let wallRightGeo = new THREE.BoxGeometry(1, 20, 60);
+        let wallRightGeo = new THREE.BoxGeometry(1, 20, 65);
         this.wallRight = new THREE.Mesh(wallRightGeo, wallMat);
         this.wallRight.position.set(30, 0, 0);
         this.wallRight.castShadow = true;

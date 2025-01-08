@@ -1,6 +1,5 @@
 import * as THREE from "three";
 import * as CSS3D from "css3d";
-import { GLTFLoader } from './node_modules/three/examples/jsm/loaders/GLTFLoader.js';
 import { PointerLockControls } from "./node_modules/three/examples/jsm/controls/PointerLockControls.js";
 import KeyboardHelper from "./keyboard.js";
 import Lantai from "./lantai.js";
@@ -13,6 +12,8 @@ import Lampu from './lampu.js';
 import Saklar from "./saklar.js";
 import TV from "./tv.js"; 
 import Sofa from "./sofa.js";
+import sunmoon from "./sunmoon.js";
+
 
 // Scene = 3D world kita
 let scene = new THREE.Scene();
@@ -29,20 +30,16 @@ let clock = new THREE.Clock();
 // Shadow
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+// Posisi Kamera
+cam.position.z = 20;
+// Ganti Warna background
+// renderer.setClearColor(0xcacaca);
 
 // Tombol Lock kamera
-let button = document.getElementById("btn");
-button.addEventListener("click", () => {
+document.addEventListener("contextmenu", (ev) => {
+    ev.preventDefault();
     PlCtrl.lock();
 })
-
-PlCtrl.addEventListener('lock', ()=>{
-    button.innerHTML = "Locked";
-});
-
-PlCtrl.addEventListener('unlock', ()=>{
-    button.innerHTML = "Unlocked";
-});
 
 // Raycast
 let rayCast = new THREE.Raycaster();
@@ -96,11 +93,6 @@ function prosesKeyboard(delta) {
     }
 }
 
-// Posisi Kamera
-cam.position.z = 20;
-// Ganti Warna background
-renderer.setClearColor(0xcacaca);
-
 Plafon(scene);
 Lampu(scene);
 
@@ -125,6 +117,9 @@ let doorPosition = { x: 0, y: 0, z: -30.3 }; // Dekat dengan tembok depan
 let door = new Pintu(scene, doorPosition);
 
 let sofa = new Sofa(scene);
+
+// Matahari & Bulan
+let sunandmoon = new sunmoon(scene);
 
 // Ambient Light
 let ambLight = new THREE.AmbientLight(0xffffff,0.05);
