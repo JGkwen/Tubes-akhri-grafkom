@@ -14,6 +14,7 @@ import TV from "./tv.js";
 import Sofa from "./sofa.js";
 import sunmoon from "./sunmoon.js";
 import AudioPlayer from "./audioplayer.js";
+import buku from "./buku.js";
 
 
 // Scene = 3D world kita
@@ -126,6 +127,8 @@ let sofa = new Sofa(scene);
 
 // Matahari & Bulan
 let sunandmoon = new sunmoon(scene);
+
+let books = new buku(scene);
 
 // Ambient Light
 let ambLight = new THREE.AmbientLight(0xffffff,0.05);
