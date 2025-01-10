@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import * as CSS3D from "css3d";
+import * as CANNON from "cannon";
 import { PointerLockControls } from "./node_modules/three/examples/jsm/controls/PointerLockControls.js";
 import KeyboardHelper from "./keyboard.js";
 import Lantai from "./lantai.js";
@@ -15,6 +16,7 @@ import Sofa from "./sofa.js";
 import sunmoon from "./sunmoon.js";
 import AudioPlayer from "./audioplayer.js";
 import buku from "./buku.js";
+import Grass from "./grass.js";
 
 
 // Scene = 3D world kita
@@ -123,7 +125,11 @@ let kabin = new kabinet(scene, audioListener);
 let doorPosition = { x: 0, y: 0, z: -30.3 }; 
 let door = new Pintu(scene, doorPosition, audioListener);
 
+// Sofa
 let sofa = new Sofa(scene);
+
+// Grass
+let grass = new Grass(scene);
 
 // Matahari & Bulan
 let sunandmoon = new sunmoon(scene);
@@ -154,6 +160,16 @@ scene.add(spLight);
 // let spLightHelp = new THREE.SpotLightHelper(spLight);
 // scene.add(spLightHelp);
 
+// Cannon
+// let world = new CANNON.World();
+// world.gravity.set(0,-10,0);
+// world.broadphase = new CANNON.NaiveBroadphase();
+// let timeStamp = 1.0/60.0;
+
+// let plane = new CANNON.Plane();
+// let planebody = new CANNON.Body({shape:plane, mass:0});
+// planebody.quaternion.setFromAxisAngle(new CANNON.Vec3(1,0,0), -Math.PI/2);
+// world.addBody(planebody);
 
 // CSS3D
 function Element(id, x, y, z) {
