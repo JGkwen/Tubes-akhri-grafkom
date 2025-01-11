@@ -10,7 +10,7 @@ export default class Saklar {
         const saklarMat = new THREE.MeshStandardMaterial({ color: 0x333333 });
         this.saklar = new THREE.Mesh(saklarGeo, saklarMat);
 
-        this.saklar.position.set(-5, 0, -29.8);
+        this.saklar.position.set(-8, 0, -29.7);
         this.saklar.castShadow = true;
         this.saklar.receiveShadow = true;
 

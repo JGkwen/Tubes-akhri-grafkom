@@ -12,6 +12,8 @@ export default class Grass {
         
                 grass.rotation.x = -Math.PI / 2;
                 grass.position.set(0,-20,0);
+                grass.castShadow = true;
+                grass.receiveShadow = true;
 
                 scene.add(grass);
             }

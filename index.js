@@ -17,6 +17,7 @@ import sunmoon from "./sunmoon.js";
 import AudioPlayer from "./audioplayer.js";
 import buku from "./buku.js";
 import Grass from "./grass.js";
+import Hiasan from "./hiasan.js";
 
 
 // Scene = 3D world kita
@@ -127,6 +128,9 @@ let door = new Pintu(scene, doorPosition, audioListener);
 
 // Sofa
 let sofa = new Sofa(scene);
+
+// Hiasan
+let hiasan = new Hiasan(scene);
 
 // Grass
 let grass = new Grass(scene);
