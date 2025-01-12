@@ -105,7 +105,7 @@ function prosesKeyboard(delta) {
 const audioListener = new THREE.AudioListener();
 cam.add(audioListener);
 
-const audioPlayer = new AudioPlayer(scene, audioListener, { x: 10, y: -1, z: -12 });
+const audioPlayer = new AudioPlayer(scene, audioListener);
 
 Plafon(scene);
 Lampu(scene);
@@ -123,8 +123,7 @@ let desk = new Desk(scene);
 let kabin = new kabinet(scene, audioListener);
 
 // Tambahkan pintu ke tembok depan
-let doorPosition = { x: 0, y: 0, z: -30.3 }; 
-let door = new Pintu(scene, doorPosition, audioListener);
+let door = new Pintu(scene, audioListener);
 
 // Sofa
 let sofa = new Sofa(scene);
@@ -145,7 +144,7 @@ let ambLight = new THREE.AmbientLight(0xffffff,0.05);
 scene.add(ambLight);
 
 // Point Light (Lampu Plafon)
-let pLight = new THREE.PointLight(0xffffff, 50, 0);
+let pLight = new THREE.PointLight(0xffffff, 100, 100);
 pLight.position.set(0, 9.48, 0);
 pLight.castShadow = true;
 scene.add(pLight);
@@ -204,9 +203,8 @@ document.body.appendChild(renderer2.domElement);
 // id Video yt
 let ytVid = Element('IpFX2vq8HKw', 0, 0, 0);
 
-// Tambahkan TV di atas meja
-let tvPosition = { x: 0, y: -2.25, z: -10 }; 
-let tv = new TV(scene, tvPosition, ytVid);
+// tv 
+let tv = new TV(scene, ytVid);
 
 function draw() {
     renderer.render(scene, cam);

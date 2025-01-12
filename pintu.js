@@ -1,7 +1,7 @@
 import * as THREE from "three";
 
 export default class Pintu {
-    constructor(scene, position = { x: 0, y: 0, z: 0 }, audioListener) {
+    constructor(scene, audioListener) {
         this.audioListener = audioListener;
 
         let doorTexture = new THREE.TextureLoader().load("./texture/Door.png");
@@ -9,7 +9,8 @@ export default class Pintu {
             map: doorTexture,
         });
 
-        let doorGeo = new THREE.BoxGeometry(8, 15, 1);
+        const position = { x: 0, y: 0, z: -30.3 };
+        const doorGeo = new THREE.BoxGeometry(8, 15, 1);
         this.door = new THREE.Mesh(doorGeo, doorMat);
 
         this.door.castShadow = true;

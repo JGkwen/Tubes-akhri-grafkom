@@ -1,9 +1,10 @@
 import * as THREE from "three";
 
 export default class TV {
-    constructor(scene, position = { x: 0, y: -2.25, z: -10 }, ytVid) {
+    constructor(scene, ytVid) {
         this.scene = scene;
 
+        const position = { x: 0, y: -2.25, z: -10 };
         const screenGeo = new THREE.BoxGeometry(12, 7, 0.5);
         const screenMat = new THREE.MeshStandardMaterial({
             color: 0x000000,

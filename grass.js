@@ -12,9 +12,15 @@ export default class Grass {
         
                 grass.rotation.x = -Math.PI / 2;
                 grass.position.set(0,-20,0);
-                grass.castShadow = true;
-                grass.receiveShadow = true;
-
+                grass.traverse((child) => {
+                    if (child.isMesh) {
+                        child.material = new THREE.MeshStandardMaterial({
+                            map: child.material.map,
+                                        });
+                        child.castShadow = true;
+                        child.receiveShadow = true;
+                    }
+                });
                 scene.add(grass);
             }
         );

@@ -1,7 +1,7 @@
 import * as THREE from "three";
 
 export default class AudioPlayer {
-    constructor(scene, audioListener, position = { x: 0, y: 0, z: 0 }) {
+    constructor(scene, audioListener) {
         this.scene = scene;
         this.audioListener = audioListener;
 
@@ -23,6 +23,7 @@ export default class AudioPlayer {
         });
 
         // Casing audio Player
+        const position = { x: 10, y: -1, z: -12 };
         const bodyGeometry = new THREE.BoxGeometry(6, 3, 0.5);
         const bodyMaterial = new THREE.MeshStandardMaterial({ color: 0x333333 });
         const bodyMesh = new THREE.Mesh(bodyGeometry, bodyMaterial);
