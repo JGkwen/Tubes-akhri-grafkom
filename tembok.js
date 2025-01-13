@@ -10,7 +10,7 @@ export default class Tembok {
             map: wallCol,
             normalMap: wallNorm,
             roughnessMap: wallRough,
-            side: THREE.DoubleSide, // Tambahkan ini untuk menampilkan kedua sisi
+            // side: THREE.DoubleSide, // Tambahkan ini untuk menampilkan kedua sisi
         });
 
         // Tembok depan dengan lubang pintu
