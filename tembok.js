@@ -10,7 +10,7 @@ export default class Tembok {
             map: wallCol,
             normalMap: wallNorm,
             roughnessMap: wallRough,
-            // side: THREE.DoubleSide, // Tambahkan ini untuk menampilkan kedua sisi
+            // side: THREE.FrontSide, // Tambahkan ini untuk menampilkan kedua sisi
         });
 
         // Tembok depan dengan lubang pintu
@@ -20,6 +20,13 @@ export default class Tembok {
         wallFrontShape.lineTo(30, 10); // Kanan atas
         wallFrontShape.lineTo(-30, 10); // Kiri atas
         wallFrontShape.lineTo(-30, -10); // Tutup shape
+
+        const wallFrontShapeBack = new THREE.Shape();
+        wallFrontShapeBack.moveTo(-30, -10); // Kiri bawah
+        wallFrontShapeBack.lineTo(30, -10); // Kanan bawah
+        wallFrontShapeBack.lineTo(30, 10); // Kanan atas
+        wallFrontShapeBack.lineTo(-30, 10); // Kiri atas
+        wallFrontShapeBack.lineTo(-30, -10); // Tutup shape
 
         // Buat lubang pintu 
         const doorHole = new THREE.Path();
@@ -35,13 +42,21 @@ export default class Tembok {
         doorHole.lineTo(doorX - doorWidth / 2, doorY - doorHeight / 2); // Tutup lubang
 
         wallFrontShape.holes.push(doorHole);
+        wallFrontShapeBack.holes.push(doorHole);
 
-        const wallFrontGeo = new THREE.ShapeGeometry(wallFrontShape);
+        let wallFrontGeo = new THREE.ShapeGeometry(wallFrontShape);
+        let wallFrontGeo2 = new THREE.ShapeGeometry(wallFrontShapeBack);
         this.wallFront = new THREE.Mesh(wallFrontGeo, wallMat);
+        this.wallFront2 = new THREE.Mesh(wallFrontGeo2, wallMat);
         this.wallFront.position.set(0, 0, -30);
+        this.wallFront2.position.set(0, 0, -30.5);
         this.wallFront.castShadow = true;
+        this.wallFront2.castShadow = true;
         this.wallFront.receiveShadow = true;
+        this.wallFront2.receiveShadow = true;
+        this.wallFront2.rotation.y += Math.PI;
         scene.add(this.wallFront);
+        scene.add(this.wallFront2);
 
         // Tembok belakang
         let wallBackGeo = new THREE.BoxGeometry(65, 20, 1);

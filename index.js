@@ -163,17 +163,6 @@ scene.add(spLight);
 // let spLightHelp = new THREE.SpotLightHelper(spLight);
 // scene.add(spLightHelp);
 
-// Cannon
-// let world = new CANNON.World();
-// world.gravity.set(0,-10,0);
-// world.broadphase = new CANNON.NaiveBroadphase();
-// let timeStamp = 1.0/60.0;
-
-// let plane = new CANNON.Plane();
-// let planebody = new CANNON.Body({shape:plane, mass:0});
-// planebody.quaternion.setFromAxisAngle(new CANNON.Vec3(1,0,0), -Math.PI/2);
-// world.addBody(planebody);
-
 // CSS3D
 function Element(id, x, y, z) {
     const div = document.createElement('div');
