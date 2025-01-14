@@ -17,7 +17,7 @@ export default class AudioPlayer {
             audioLoader.load(file, (buffer) => {
                 sound.setBuffer(buffer);
                 sound.setLoop(false);
-                sound.setVolume(0.5);
+                sound.setVolume(1);
             });
             this.sounds.push(sound);
         });
@@ -32,8 +32,8 @@ export default class AudioPlayer {
         bodyMesh.receiveShadow = true;
         this.scene.add(bodyMesh);
 
-        // LED Audio player
-        const screenGeometry = new THREE.PlaneGeometry(5, 2.5);
+        // LED Audio player 
+        const screenGeometry = new THREE.PlaneGeometry(5.3, 1.6);
         const screenMaterial = new THREE.MeshBasicMaterial({ color: 0x000000 });
         const screenMesh = new THREE.Mesh(screenGeometry, screenMaterial);
         screenMesh.position.set(position.x, position.y + 0.2, position.z + 0.26);
@@ -47,6 +47,7 @@ export default class AudioPlayer {
             textureLoader.load("images/album3.png"),
         ];
 
+        // menggunakan gpt, dimana saya menanyakan bagaimana cara agar bisa menginput gambar tiap gambar album ke led
         this.albumCovers = [];
         albums.forEach((texture, index) => {
             const albumGeometry = new THREE.PlaneGeometry(1, 1);
