@@ -22,7 +22,7 @@ export default class kabinet {
         this.openSound = new THREE.PositionalAudio(this.audioListener);
         audioLoader.load("./audio/soundeffect/cabinet_open.mp3", (buffer) => {
             this.openSound.setBuffer(buffer);
-            this.openSound.setRefDistance(5);
+            this.openSound.setRefDistance(30);
             this.openSound.setLoop(false);
         });
 
@@ -30,7 +30,7 @@ export default class kabinet {
         this.closeSound = new THREE.PositionalAudio(this.audioListener);
         audioLoader.load("./audio/soundeffect/cabinet_close.mp3", (buffer) => {
             this.closeSound.setBuffer(buffer);
-            this.closeSound.setRefDistance(5);
+            this.closeSound.setRefDistance(30);
             this.closeSound.setLoop(false);
         });
 

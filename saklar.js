@@ -24,7 +24,7 @@ export default class Saklar {
 
         audioLoader.load("./audio/soundeffect/switch.mp3", (buffer) => {
             this.toggleSound.setBuffer(buffer);
-            this.toggleSound.setRefDistance(5);
+            this.toggleSound.setRefDistance(20);
             this.toggleSound.setLoop(false);
         });
 

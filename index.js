@@ -38,7 +38,7 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 // Posisi Kamera
 cam.position.z = 20;
 // Ganti Warna background
-// renderer.setClearColor(0xcacaca);
+renderer.setClearColor(0xaecce4);
 
 // Tombol Lock kamera
 document.addEventListener("contextmenu", (ev) => {
